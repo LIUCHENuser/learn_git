@@ -22,7 +22,7 @@
 		data(){
 			return{
 				username:"username",
-				pasw:"12345678912313213123",
+				pasw:"000000",
 			}
 		},
 		methods:{
