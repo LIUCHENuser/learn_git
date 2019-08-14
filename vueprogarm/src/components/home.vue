@@ -21,8 +21,8 @@
 		name:"home",
 		data(){
 			return{
-				username:"",
-				pasw:"",
+				username:"username",
+				pasw:"123456",
 			}
 		},
 		methods:{
