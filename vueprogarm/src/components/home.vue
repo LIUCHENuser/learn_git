@@ -22,17 +22,13 @@
 		data(){
 			return{
 				username:"username",
-				pasw:"123456",
+				pasw:"123456789",
 			}
 		},
 		methods:{
 			use(){
 			}
 		},
-		creatd:{
-			
-		}
-		
 	}
 </script>
 
