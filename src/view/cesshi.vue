@@ -1,5 +1,5 @@
 <template>
-<div class="ce-warp">
+<div class="cantainer">
 	<el-table
 	:data="userlist"
 	border

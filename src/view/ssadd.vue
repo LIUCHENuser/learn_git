@@ -88,9 +88,10 @@
 				//执行实例
 				var uploadInst = upload.render({
 					elem: '#test1', //绑定元素
-					url: 'http://192.168.1.106:8000/add',//上传接口
+					url: 'http://192.168.1.106:8000/uploatest',//上传接口
 					done: function(res){
 						alert("上传成功")
+						console.log(res)
 					},
 					error: function(){
 						//请求异常回调
