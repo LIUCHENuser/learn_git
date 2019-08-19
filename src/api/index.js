@@ -67,6 +67,19 @@ export let captcha = ()=>{
 	})
 }
 
+export let s_car = (data)=>{
+		console.log(data)
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:"http://192.168.31.222:8000/s_car",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+
 export let ssadd = (data)=>{
 	return axios({
 		method:"post",
@@ -157,17 +170,6 @@ export let carfind = (data)=>{
 		// baseUrl:base,
 		data:qs.stringify(data),
 		url:xuanbo+"/carfind",
-		headers:{
-			"content-type":"application/x-www-form-urlencoded"
-		}
-	})
-}
-export let del_sta = (data)=>{
-	return axios({
-		method:"post",
-		// baseUrl:base,
-		data:qs.stringify(data),
-		url:xuanbo+"/del_sta",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
