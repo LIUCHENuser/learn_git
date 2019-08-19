@@ -3,6 +3,9 @@ import qs from "qs";
 import {getItem} from "@/util/cookie";
 import router from "@/router";
 const base = "";
+const shuoguo="http://192.168.31.222:8000"
+const xuanbo="http://192.168.31.109:8000";
+const yuequn="http://192.168.31.101:8000";
 const header = {"content-type":"application/x-www-form-urlencoded"};
 axios.interceptors.request.use(config=>{
 	console.log(config.url);
@@ -36,7 +39,7 @@ export let login = (data)=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.101:8000/login",
+		url:"http://192.168.31.222:8000/login",
 		data:qs.stringify(data),
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
@@ -47,7 +50,7 @@ export let captchanum = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.101:8000/captcha",
+		url:"http://192.168.31.222:8000/captcha",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -57,7 +60,7 @@ export let captcha = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.101:8000/captcha",
+		url:"http://192.168.31.222:8000/captcha",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -69,7 +72,7 @@ export let ssadd = (data)=>{
 		method:"post",
 		// baseUrl:base,
 		data:qs.stringify(data),
-		url:"http://192.168.1.106:8000/add",
+		url:xuanbo+"/add",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -79,7 +82,7 @@ export let stainfo = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.106:8000/stainfo",
+		url:xuanbo+"/stainfo",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -89,7 +92,7 @@ export let parkinfo = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.106:8000/parkinfo",
+		url:xuanbo+"/parkinfo",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -99,7 +102,7 @@ export let supplierinfo = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.106:8000/supplierinfo",
+		url:xuanbo+"/supplierinfo",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -109,7 +112,7 @@ export let userinfo = ()=>{
 	return axios({
 		method:"post",
 		// baseUrl:base,
-		url:"http://192.168.1.106:8000/userinfo",
+		url:xuanbo+"/userinfo",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
@@ -120,7 +123,51 @@ export let stafind = (data)=>{
 		method:"post",
 		// baseUrl:base,
 		data:qs.stringify(data),
-		url:"http://192.168.1.106:8000/stafind",
+		url:xuanbo+"/stafind",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+export let supplier = (data)=>{
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:yuequn+"/supplier",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+export let carinfo = ()=>{
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		url:xuanbo+"/carinfo",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+
+export let carfind = (data)=>{
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:xuanbo+"/carfind",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+export let del_sta = (data)=>{
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:xuanbo+"/del_sta",
 		headers:{
 			"content-type":"application/x-www-form-urlencoded"
 		}
