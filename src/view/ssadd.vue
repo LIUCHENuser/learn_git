@@ -1,16 +1,30 @@
 <template>
 	<div class="ssadd-warp">
 		<!--服务站添加-->
-		<div>
- 			<p style="font-weight: bold; margin-left: 5px">服务站添加</p >
-		</div>
-		<hr style="margin-top: 5px; height: 2px; background: red">
+		<h2 style="font-weight: bold;">服务站添加</h2>
+		<div style="width: 100%; border-bottom: solid 2px black; margin-top: 5px;"></div>
 		<div class="ssadd-from">
 			<!--<form>-->
 				<ul>
 					<li>
 						<span>服务站名字:</span>
 						<input type="text" name="s_name" id="s_name" class="layui-input" value="" placeholder="服务站名字" v-model="s_name"/>
+					</li>
+					<li>
+						<span>所在省:</span>
+						<input type="text" name="s_omit" id="s_omit" class="layui-input" value="" placeholder="所在省" v-model="s_omit"/>
+					</li>
+					<li>
+						<span>所在市:</span>
+						<input type="text" name="s_cantonal" id="s_cantonal" class="layui-input" value="" placeholder="所在市" v-model="s_cantonal"/>
+					</li>
+					<li>
+						<span>所在县:</span>
+						<input type="text" name="s_county" id="s_county" class="layui-input" value="" placeholder="所在县" v-model="s_county"/>
+					</li>
+					<li>
+						<span>详细地址:</span>
+						<input type="text" name="s_address" id="s_address" class="layui-input" value="" placeholder="详细地址" v-model="s_address"/>
 					</li>
 					<li>
 						<span>经度:</span>
@@ -33,47 +47,16 @@
 					</li>
 					<li>
 						<span>电话:</span>
-						<input type="text" name="s_phone" id="s_phone" class="layui-input" value="" placeholder="电话" />
+						<input type="text" name="s_phone" id="s_phone" class="layui-input" value="" placeholder="电话" v-model="s_phone"/>
 					</li>
 					<li>
-						<span>请选择地址:</span>
-						<select v-model="prov" class="select-style">
-					    	<option v-for="(item,index) in arr1">{{item.name}}</option>
-					    </select>
-					    <select v-model="city" class="select-style">
-					    	<option v-for="(item,index) in cityArr">{{item.name}}</option>
-					    </select>
-					    <select v-model="country" class="select-style">
-					    	<option v-for="(item,index) in countryArr">{{item}}</option>
-					    </select>
-					</li>
-					<li style="width: 100%;">
-						<span>详细地址:</span>
-						<textarea name="s_address" rows="" cols="" placeholder="详细地址" v-model="s_address" style="height: 100px; padding: 10px; flex: 1; border: solid 1px #e6e6e6;"></textarea>
-					</li>
-					<li style="justify-content: space-around;">
-						<div class="idtu-warp">
-							<span>负责人身份证正面:</span>
-							<div class="idtu-tu">
-								<img :src="idzheng"/>
-							</div>
-							<button type="button" class="layui-btn" id="test1">
-								<i class="layui-icon">&#xe67c;</i>上传图片
-							</button>
-						</div>
-						<div class="idtu-warp">
-							<span>负责人身份证反面:</span>
-							<div class="idtu-tu">
-								<img :src="idfan"/>
-							</div>
-							<button type="button" class="layui-btn" id="test2">
-								<i class="layui-icon">&#xe67c;</i>上传图片
-							</button>
-						</div>
+						<span>负责人身份证:</span>
+						<button type="button" class="layui-btn" id="test1">
+							<i class="layui-icon">&#xe67c;</i>上传图片
+						</button>
 					</li>
 				</ul>
 				<div class="but-warp"><button class="layui-btn" @click="ssaddfn()">添加服务站</button></div>
-				
 			<!--</form>-->
 		</div>
 	</div>
@@ -81,13 +64,14 @@
 <script type="text/javascript" src="./static/layui/layui.js"></script>
 <script>
 	import {ssadd} from "@/api"
-	import city1 from "./city.json"
-	import {getItem} from "@/util/cookie";
 	export default{
 		name:"ssadd",
 		data(){
 			return{
 				s_name:"",
+				s_omit:"",
+				s_cantonal:"",
+				s_county:"",
 				s_address:"",
 				s_long:"",
 				s_dime:"",
@@ -96,47 +80,18 @@
 				leader:"",
 				s_phone:"",
 				s_ID_card:"",
-				idzheng:require('../assets/idZheng.png'),
-				idfan:require('../assets/idFan.png'),
-				prov: '北京',//第一次进入，updateCity()需要调用，为<省-默认值>
-	            city: '',//调用updateCity()后，会改变city和country的值
-	            country: '',//所以，这两个值输入也没用
-	            arr1: [], //option的数据
-	            cityArr: [],
-	            countryArr: [],
-				
 			}
 		},
-		created(){
-			this.getid()
-		},
 		mounted() {
-			let tu=this;
-			layui.use('element', function() {
-				var element = layui.element;
-			})
 			layui.use('upload', function(){
 				var upload = layui.upload;
 				//执行实例
 				var uploadInst = upload.render({
 					elem: '#test1', //绑定元素
-					url: 'http://192.168.31.222:8000/uploads',//上传接口
-					done: function(res){
-						alert("上传成功")
-						tu.idzheng=res.url;
-					},
-					error: function(){
-						//请求异常回调
-						alert("上传失败")
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: 'http://192.168.31.222:8000/uploads',//上传接口
+					url: 'http://192.168.1.106:8000/uploatest',//上传接口
 					done: function(res){
 						alert("上传成功")
 						console.log(res)
-						tu.idfan=res.url;
 					},
 					error: function(){
 						//请求异常回调
@@ -144,15 +99,14 @@
 					}
 				});
 			});
-			this.updateCity()
 		},
 		methods:{
 			ssaddfn(){
 				ssadd({
 					s_name:this.s_name,
-					s_omit:this.prov,
-					s_cantonal:this.city,
-					s_county:this.country,
+					s_omit:this.s_omit,
+					s_cantonal:this.s_cantonal,
+					s_county:this.s_county,
 					s_address:this.s_address,
 					s_long:this.s_long,
 					s_dime:this.s_dime,
@@ -160,49 +114,12 @@
 					s_pwd:this.s_pwd,
 					leader:this.leader,
 					s_phone:this.s_phone,
-					s_ID_card_A:this.idzheng,
-					s_ID_card_B:this.idfan,
+					s_ID_card:this.s_ID_card,
 				}).then((res)=>{
 					console.log(res)
 				})
 			},
-			updateCity: function () { 
-	            this.arr1 = city1 //获取城市的数据
-	            for (var i in this.arr1) {//遍历所有的省
-	                var obj = this.arr1[i];
-	                if (obj.name == this.prov) {//当选择一个省时
-	                    this.cityArr = obj.city;//将这个省下的市数据注入
-	                    break;
-	                }
-	            }
-	            this.city = this.cityArr[0].name;//这里可以设置<市-默认值>
-	        },
-	        updateCountry: function () {
-	            for (var i in this.cityArr) {
-	                var obj = this.cityArr[i];
-	                if (obj.name == this.city) {
-	                    this.countryArr = obj.area;
-	                    break;
-	                }
-	            }
-	            this.country = this.countryArr[0];//设置<区-默认值>
-	        },
-	    	getid(){
-				if(!getItem("id")){
-					alert("您的身份信息已过期,请重新登录")
-					this.$router.push("/login")
-				}
-			},
-		},
-		watch: {
-	        prov: function () {//当省改变时，改变城市和区
-	            this.updateCity(),
-	            this.updateCountry()
-	        },
-	        city:function () {//当市改变的时候，改变区
-	            this.updateCountry()
-	        }
-    	},
+		}
 	}
 </script>
 
@@ -231,12 +148,6 @@
 		align-items: center;
 		/*justify-content: flex-end;*/
 	}
-	.ssadd-from ul li:last-of-type{
-		width: 100%;
-	}
-	.idtu-warp{
-		width: 30%;
-	}
 	.ssadd-from ul li span{
 		width: 114px;
 		font-size: 18px;
@@ -250,16 +161,5 @@
 		width: 100%;
 		display: flex;
 		justify-content:flex-end;
-	}
-	.select-style{
-		flex: 1;
-		height: 38px;
-		padding-left: 10px;
-		border: solid 1px #e6e6e6;
-	}
-	.idtu-tu{
-		width: 325px;
-		height: 200px;
-		overflow: hidden;
 	}
 </style>

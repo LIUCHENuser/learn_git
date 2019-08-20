@@ -8,23 +8,25 @@ import Md5 from 'js-md5'
 import ElementUI from 'element-ui';
 import {setItem,getItem} from "./util/cookie";
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.prototype.$echarts=Echarts;
+Vue.prototype.$echarts = Echarts;
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */
 router.beforeEach((to,from,next)=>{
-	if(getItem('id')){
-	    next()
-	}else{
-	    if(to.path == '/login'){
-	      next()
-	    }else{
-	      next({
-	        replace:true,
-	        name:'login',
-	      })
-	    }
-	}
+//if(getItem('id')){
+//  next()
+//}else{
+//  if(to.path == '/login'){
+//    next()
+//  }else{
+//    next({
+//      replace:true,
+//      name:'login',
+//    })
+//  }
+//}
+	next()
+
 })
 new Vue({
   el: '#app',
