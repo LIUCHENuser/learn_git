@@ -67,19 +67,6 @@ export let captcha = ()=>{
 	})
 }
 
-export let s_car = (data)=>{
-		console.log(data)
-	return axios({
-		method:"post",
-		// baseUrl:base,
-		data:qs.stringify(data),
-		url:"http://192.168.31.222:8000/s_car",
-		headers:{
-			"content-type":"application/x-www-form-urlencoded"
-		}
-	})
-}
-
 export let ssadd = (data)=>{
 	return axios({
 		method:"post",
@@ -175,32 +162,33 @@ export let carfind = (data)=>{
 		}
 	})
 }
-
-
-export let type = ()=>{
+export let del_sta = (data)=>{
 	return axios({
-		method:"get",
-		url:"/type"
-	})
-}
-export let shop =()=>{
-	return axios({
-		method:"get",
-		url:"/shop",
-	})
-}
-export let zhao=((obj1,obj2)=>{
-	return axios({
-		method: 'get',
-		url: base+'/zhao',
-		params:{
-			username:obj1,
-			password:ogj2,
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:xuanbo+"/del_sta",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
 		}
 	})
-})
-export let goodsMenu = (data)=>axios({method:"get",params:data,url:"/goods"})
-//添加购物测
-export let car = ()=>axios({method:"post",header,url:"http://192.168.1.106:8000/add"})
-//获取购物车
-export let carList = (data)=>axios({method:"post",data:qs.stringify(data),header,url:"/carList"})
+}
+export let stax = (data)=>{
+	return axios({
+		method:"post",
+		// baseUrl:base,
+		data:qs.stringify(data),
+		url:xuanbo+"/stax",
+		headers:{
+			"content-type":"application/x-www-form-urlencoded"
+		}
+	})
+}
+
+
+//export let type = ()=>{
+//	return axios({
+//		method:"get",
+//		url:"/type"
+//	})
+//}
