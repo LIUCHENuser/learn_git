@@ -23,7 +23,7 @@
     
   </thead>
   <tbody>
-    <tr v-for="(item,index) in arr">
+    <tr v-for="(item,index) in arr2">
       <td v-for="(item1,index1) in item">{{item1}}</td>
     </tr>
   </tbody>
@@ -55,6 +55,7 @@
 		name:"sercarlist",
 		data(){
 			return{
+				arr2:[],
 				arr:{},
 				prov: '北京',//第一次进入，updateCity()需要调用，为<省-默认值>
 	            city: '',//调用updateCity()后，会改变city和country的值
@@ -73,7 +74,7 @@
 			s_car({
 				id:getItem("id")
 			}).then((res)=>{
-				console.log(res)
+				this.arr2=res.data.data
 			})
 		},
 		mounted(){
