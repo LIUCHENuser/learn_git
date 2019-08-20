@@ -1,68 +1,80 @@
 <template>
 	<div class="carlist-warp">
-		<h2 style="font-weight: bold;">停车场信息</h2>
-		<div style="width: 100%; border-bottom: solid 2px black; margin-top: 5px;"></div>
-		<table class="layui-table">
-			<thead>
-				<tr>
-					<th>车牌号</th>
-					<th>入场时间</th>
-					<th>出场时间</th>
-					<th>预交金额</th>
-					<th>是否入住</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="(item,index) in carlist">
-					<td>{{item.plate_Number}}</td>
-					<td>{{item.appear_time}}</td>
-					<td>{{item.entry_time}}</td>
-					<td>{{item.prepay}}</td>
-					<td>
-						<p v-if="item.is_check=='False'">否</p>
-						<p v-if="item.is_check=='True'">是</p>
-					</td>
-					<td>
-						删除
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<!--分页-->
-		<div id="carlistfen"></div>
+		<div>
+			<p style="font-weight: bold; margin-left: 5px">停车场列表</p >
+		</div>
+		<hr style="margin-top: 5px; height: 2px; background: red">
+		<el-table style="width: 100%;" border :data="carlist.slice((currentPage-1)*pagesize,currentPage*pagesize)">
+            <el-table-column label="车牌号" prop="plate_Number">
+            </el-table-column>    
+            <el-table-column label="入场时间" prop="appear_time">
+            </el-table-column>    
+            <el-table-column label="出场时间" prop="entry_time">
+            </el-table-column>    
+            <el-table-column label="预交金额" prop="prepay">
+            </el-table-column>    
+            <el-table-column label="是否入住" prop="is_check">
+            </el-table-column>    
+            <el-table-column label="操作">
+            	<button>修改</button>
+            	<button>删除</button>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-size="pagesize"        
+            layout="total, prev, pager, next, jumper"
+            :total="carlist.length">
+        </el-pagination>
 	</div>
 </template>
 
 <script>
 	import {parkinfo} from "@/api"
+	import {getItem} from "@/util/cookie";
+	import {Pagination,Table} from 'element-ui';
 	export default {
 		name: "sslist",
 		data() {
 			return {
+				sou:"",
 				carlist:[],
+				currentPage:1,
+				pagesize:10,
 			}
 		},
 		created() {
+			this.getid()
 			parkinfo().then((res)=>{
-				let leng=res.data.length;
 				this.carlist=res.data;
-				this.$nextTick(()=>{
-					layui.use('laypage', function(){
-					  var laypage = layui.laypage;
-					  //执行一个laypage实例
-					  laypage.render({
-					    elem: 'carlistfen', //注意，这里的 test1 是 ID，不用加 # 号
-					    count:leng//数据总数，从服务端得到
-					  });
-					});
-				})
 			})
 		},
 		mounted() {
 		},
 		methods: {
-
+			souSuo(){
+				carfind({
+					plate_Number:this.sou
+				}).then((res)=>{
+					this.carlist=res.data;
+				})
+			},
+			// 初始页currentPage、初始每页数据数pagesize和数据data
+	        handleSizeChange: function (size) {
+	                this.pagesize = size;
+	        },
+	        handleCurrentChange: function(currentPage){
+	                this.currentPage = currentPage;
+	        },
+	        getid(){
+				if(!getItem("id")){
+					alert("您的身份信息已过期,请重新登录")
+					this.$router.push("/login")
+				}
+			},
 		}
 	}
 </script>
