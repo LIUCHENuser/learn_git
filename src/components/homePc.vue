@@ -113,6 +113,9 @@
 						<a @click="dian(2)" class="left-nav-font" href="javascript:;">供货商</a>
 						<dl class="layui-nav-child">
 							<dd>
+								<a target="frame">待审核供货商列表</a>
+							</dd>
+							<dd>
 								<a target="frame">货源列表</a>
 							</dd>
 							<dd>
@@ -144,7 +147,7 @@
 						<a class="left-nav-font" href="javascript:;">车辆</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a target="frame">车辆列表</a>
+								<a target="frame" @click="dian(41)">车辆列表</a>
 							</dd>
 							<dd>
 								<a target="frame">待审核</a>
@@ -168,13 +171,13 @@
 		<div class="layui-body">
 		    <!-- 内容主体区域 -->
 		    <div style="padding: 71px 10px 0 10px;">
-		    	<homehome v-if="isshow==0"></homehome>
+		    	<homehome v-if="isshow==0" @send="getData"></homehome>
 		    	<sslist v-if="isshow==11"></sslist>
 		    	<ssadd v-if="isshow==111"></ssadd>
 		    	<carlist v-if="isshow==141"></carlist>
 		    	<suprlist v-if="isshow==2"></suprlist>
 		    	<userlist v-if="isshow==3"></userlist>
-		    	<ceshi></ceshi>
+		    	<carinfo v-if="isshow==41"></carinfo>
 		    </div>
 		</div>	
 	</div>
@@ -189,7 +192,8 @@
 	import carlist from "../view/carlist"
 	import suprlist from "../view/suprlist"
 	import userlist from "../view/userlist"
-	import ceshi from "../view/cesshi"
+	import carinfo from "../view/carinfo"
+	import {getItem} from "@/util/cookie";
 	export default {
 		data() {
 			return {
@@ -197,7 +201,7 @@
 			}
 		},
 		created() {
-
+			this.getid()
 		},
 		mounted() {
 			layui.use('element', function() {
@@ -207,16 +211,24 @@
 		methods: {
 			dian(num){
 				this.isshow=num
-			}
+			},
+			getData(num){
+				this.isshow=num
+			},
+			getid(){
+				if(!getItem("id")){
+					console.log("嘿嘿嘿")
+				}
+			},
 		},
 		components:{
-			ceshi,
 			homehome,
 			sslist,
 			ssadd,
 			carlist,
 			suprlist,
 			userlist,
+			carinfo,
 		}
 	}
 </script>
@@ -227,5 +239,8 @@
 	}
 	a{
 		cursor: pointer;
+	}
+	.layui-body{
+		min-width: 1366px;
 	}
 </style>
