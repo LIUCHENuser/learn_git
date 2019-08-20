@@ -57,19 +57,20 @@
 								"password":this.pasw,
 								"captcha":this.captcha,
 							}).then((res)=>{
-								console.log(res);
 								if(res.data==="fail"){
 									alert("用户名或密码有误")
+								}else if(res.data==="codefail"){
+									alert("验证码有误")
 								}else{
 									if(res.data.user_type==1){
-							          setItem("id",res.data.token)
-							          setItem("user",this.username)
-							          this.$router.push("/homePc")
-							         }else if(res.data.user_type==2){
-							          setItem("id",res.data.token)
-							          setItem("user",this.username)
-							          this.$router.push("/service")
-							         }
+										setItem("id",res.data.token)
+										setItem("user",this.username)
+										this.$router.push("/homePc")
+									}else if(res.data.user_type==2){
+										setItem("id",res.data.token)
+										setItem("user",this.username)
+										this.$router.push("/service")
+									}
 								}
 							})
 						}else{
@@ -82,12 +83,12 @@
 					alert("账号不能为空")
 				}
 			},
-			/*captchatu(){
-				this.captchaTu=""
-				setTimeout(()=>{
-					this.captchaTu="http://192.168.1.101:8000/captcha"
-				},10)
-			}*/
+//			captchatu(){
+//				this.captchaTu=""
+//				setTimeout(()=>{
+//					this.captchaTu="http://192.168.1.101:8000/captcha"
+//				},10)
+//			}
 			
 		},
 	}
