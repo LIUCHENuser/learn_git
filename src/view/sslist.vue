@@ -34,6 +34,9 @@
 				    <el-button @click.native.prevent="deleteRow(scope.$index, ssInformation)" type="text" size="small">
 						移除
 				    </el-button>
+				    <el-button @click.native.prevent="xiang(scope.$index, ssInformation)" type="text" size="small">
+						详情
+				    </el-button>
 			    </template>
 		    </el-table-column>
 		</el-table>
@@ -53,6 +56,7 @@
 	import {stainfo} from "@/api"
 	import {stafind} from "@/api"
 	import {del_sta} from "@/api"
+	import {stax} from "@/api"
 	import {getItem} from "@/util/cookie";
 	import {Pagination,Table} from 'element-ui';
 	export default {
@@ -102,6 +106,12 @@
 					this.$router.push("/login")
 				}
 			},
+			xiang(a,b){
+				let Id=b[a].id;
+				stax({id:Id}).then((res)=>{
+					console.log(res)
+				})
+			}
 		}
 	}
 </script>
